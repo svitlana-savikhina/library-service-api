@@ -26,4 +26,3 @@ class BorrowDetailSerializer(BorrowSerializer):
 class BorrowListSerializer(BorrowSerializer):
     book = serializers.SlugRelatedField(many=False, read_only=True, slug_field="title")
     user = serializers.SlugRelatedField(many=False, read_only=True, slug_field="email")
-
