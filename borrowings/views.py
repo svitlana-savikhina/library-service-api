@@ -28,5 +28,5 @@ class BorrowViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer: BorrowSerializer) -> None:
         borrowing = serializer.save(user=self.request.user)
-        text = f"New borrowing created: book- {borrowing.book.title}, user-{borrowing.user.username}"
+        text = f"New borrowing created: book- {borrowing.book.title}, user-{borrowing.user.email}"
         send_borrowing_notification.delay(text)
