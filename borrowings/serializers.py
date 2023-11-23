@@ -22,7 +22,15 @@ class BorrowDetailSerializer(BorrowSerializer):
     book = BookSerializer(many=False, read_only=True)
     user = UserSerializer(many=False, read_only=True)
 
+    class Meta:
+        model = Borrow
+        fields = "__all__"
+
 
 class BorrowListSerializer(BorrowSerializer):
     book = serializers.SlugRelatedField(many=False, read_only=True, slug_field="title")
     user = serializers.SlugRelatedField(many=False, read_only=True, slug_field="email")
+
+    class Meta:
+        model = Borrow
+        fields = "__all__"
