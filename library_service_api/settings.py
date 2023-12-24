@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
-    "debug_toolbar",
     "drf_spectacular",
     "django_celery_beat",
     "books",
@@ -64,7 +63,6 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -183,6 +181,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULE = {
     "check_overdue_borrowings": {
         "task": "borrowings.tasks.check_overdue_borrowings",
-        "schedule": crontab(hour="11", minute="21"),
+        "schedule": crontab(hour="18", minute="00"),
     },
 }
