@@ -1,6 +1,6 @@
 from datetime import date
 
-from asgiref.sync import async_to_sync
+# from asgiref.sync import async_to_sync
 from celery import shared_task
 
 from borrowings.models import Borrow
@@ -10,11 +10,7 @@ from library_service_api import settings
 
 @shared_task
 def send_borrowing_notification(text):
-    async_to_sync(send_message)(
-        bot_token=settings.TELEGRAM_BOT_TOKEN,
-        chat_id=settings.TELEGRAM_CHAT_ID,
-        text=text,
-    )
+    send_message(text=text)
 
 
 @shared_task
@@ -26,6 +22,7 @@ def check_overdue_borrowings():
 
     if overdue_borrowings:
         for borrowing in overdue_borrowings:
-            send_borrowing_notification(str(borrowing))
+            text = f"Overdue borrowing: book - {borrowing.book.title}, user - {borrowing.user.email}"
+            send_borrowing_notification(text=text)
     else:
         send_borrowing_notification("No borrowings overdue today!")
