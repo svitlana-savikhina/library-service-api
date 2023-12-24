@@ -1,13 +1,18 @@
-import telegram
+import os
+
+import requests
+
+from dotenv import load_dotenv
 
 
-from library_service_api import settings
-
-
-async def send_message(
-    bot_token=settings.TELEGRAM_BOT_TOKEN,
-    chat_id=settings.TELEGRAM_CHAT_ID,
-    text=None,
-):
-    bot = telegram.Bot(token=bot_token)
-    await bot.send_message(chat_id=chat_id, text=text)
+def send_message(text):
+    load_dotenv()
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+    api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    data = {
+        "chat_id": chat_id,
+        "text": text,
+    }
+    response = requests.post(api_url, data=data)
+    return response
